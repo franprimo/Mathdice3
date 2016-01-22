@@ -1,14 +1,23 @@
 package com.example.franprimo.mathdice3;
 
 import android.app.Activity;
+import android.content.Context;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 public class DetalleFragment extends Fragment {
+
+    private AudioManager audioManager;
+    private MediaPlayer mPlayer;
+    private int sonando = 0;
+    private boolean puedeReproducir;
 
     public DetalleFragment() {
         // Required empty public constructor
@@ -18,8 +27,12 @@ public class DetalleFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Arrancamos el servicio de audio.
+        audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
 
         //declaracionViews();
+
+        controlaAudio();
 
     }
     /*
@@ -42,6 +55,63 @@ public class DetalleFragment extends Fragment {
 
         return v;
     }
+
+    //metodo con el que controlo el audio del fragment del juego.
+    public void controlaAudio(){
+        //Cargamos la cancion
+        mPlayer = MediaPlayer.create(getActivity(), R.raw.sue);
+        //Como no he puesto botones para controlar el audio, solo tengo que poner en marcha el
+        //audio.
+        mPlayer.start();
+        /*
+        if(sonando == 0){
+            sonando = 1;
+
+            mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    Log.d("AUDIO: ", "Cargada la cancion");
+                }
+            });
+            mPlayer.start();
+        }
+        if(sonando == 1){
+            sonando = 2;
+            mPlayer.pause();
+        }else{
+            sonando = 1;
+            mPlayer.start();
+        }
+        */
+    }
+
+    // Get ready to play sound effects
+    @Override
+    public void onResume() {
+        Log.d("AUDIO", "VOLVIENDO A TOCAR");
+        super.onResume();
+        audioManager.setSpeakerphoneOn(true);
+        audioManager.loadSoundEffects();
+    }
+
+    // Release resources & clean up
+    @Override
+    public void onPause() {
+        Log.d("AUDIO", "EN PAUSA");
+        audioManager.setSpeakerphoneOn(false);
+        audioManager.unloadSoundEffects();
+        super.onPause();
+    }
+
+    // Listen for Audio focus changes
+    AudioManager.OnAudioFocusChangeListener afChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+        public void onAudioFocusChange(int focusChange) {
+            if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+                audioManager.abandonAudioFocus(afChangeListener);
+                puedeReproducir = false;
+            }
+        }
+    };
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
