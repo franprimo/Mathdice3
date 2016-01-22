@@ -82,4 +82,7 @@
         android:layout_toEndOf="@+id/signoMas"
         android:layout_marginLeft="40dp"
         android:src="@drawable/resta" />
+
+
+
 </RelativeLayout>

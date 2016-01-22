@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 public class DetalleFragment extends Fragment {
 
@@ -29,6 +30,7 @@ public class DetalleFragment extends Fragment {
 
         //Arrancamos el servicio de audio.
         audioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
+
 
         //declaracionViews();
 
@@ -71,6 +73,7 @@ public class DetalleFragment extends Fragment {
                 @Override
                 public void onPrepared(MediaPlayer mp) {
                     Log.d("AUDIO: ", "Cargada la cancion");
+                    bPlay.setEnabled(true);
                 }
             });
             mPlayer.start();
@@ -127,7 +130,10 @@ public class DetalleFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-
+        //Tengo que poner esta linea de codigo para que si cambio el fragment dinamico la musica se pare
+        //y que si vuelvo a abrir el fragment del juego no arranque otra cancion encima de la que ya esta
+        //sonando.
+        mPlayer.release();
     }
 
 
