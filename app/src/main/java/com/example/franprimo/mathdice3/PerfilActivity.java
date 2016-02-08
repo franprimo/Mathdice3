@@ -17,10 +17,12 @@ public class PerfilActivity extends Activity {
         setContentView(R.layout.activity_perfil);
 
         //Cargo el fragment en su contenedor estatico
-        PerfilFragment pf = (PerfilFragment) getFragmentManager().findFragmentById(R.id.perfilFragment);
+        PerfilUsuarioFragment pUf = (PerfilUsuarioFragment) getFragmentManager().findFragmentById(R.id.perfilUsuario);
+
 
         final EditText nombre = (EditText) findViewById(R.id.inputName);
         final EditText anyos = (EditText) findViewById(R.id.inputEdad);
+
 
         //Listener del boton que nos pasara al MainActivity.
         Button btn = (Button) findViewById(R.id.adelanteBtn);
@@ -38,6 +40,7 @@ public class PerfilActivity extends Activity {
 
             }
         });
+
     }
 
     @Override

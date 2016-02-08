@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 public class MainActivity extends Activity implements ListaFragment.ListFragmentListener {
@@ -42,9 +41,10 @@ public class MainActivity extends Activity implements ListaFragment.ListFragment
     public void onListSelected(int position){
         if(position == 0){
             if (findViewById(R.id.fragment_container) != null) {
-                PerfilFragment pf = new PerfilFragment();
+                //PerfilFragment pf = new PerfilFragment();
+                PerfilUsuarioFragment pUf = new PerfilUsuarioFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, pf);
+                transaction.replace(R.id.fragment_container, pUf);
                 transaction.commit();
             }else{
                 Intent intent = new Intent(this, Main2Activity.class);
