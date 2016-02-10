@@ -14,7 +14,7 @@
         />
 
     <!--Contenedor del fragment dinamico-->
-    <FrameLayout class="com.example.franprimo.mathdice3.DetalleFragment"
+    <FrameLayout class="com.example.franprimo.mathdice3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/fragment_container"

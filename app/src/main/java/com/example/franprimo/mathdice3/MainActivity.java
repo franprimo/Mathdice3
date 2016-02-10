@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.widget.Toast;
 
-public class MainActivity extends Activity implements ListaFragment.ListFragmentListener {
+public class MainActivity extends Activity implements ListaFragment.ListFragmentListener, PerfilUsuarioFragment.buttonListener {
+
+    private MyDBAdapter myDBAdapter;
+    String name, surname, root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +44,6 @@ public class MainActivity extends Activity implements ListaFragment.ListFragment
     public void onListSelected(int position){
         if(position == 0){
             if (findViewById(R.id.fragment_container) != null) {
-                //PerfilFragment pf = new PerfilFragment();
                 PerfilUsuarioFragment pUf = new PerfilUsuarioFragment();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.fragment_container, pUf);
@@ -77,6 +79,14 @@ public class MainActivity extends Activity implements ListaFragment.ListFragment
             t = Toast.makeText(this, "Esto abrirá el fragment dinamico de información", Toast.LENGTH_LONG);
             t.show();
         }
+    }
+
+    //Metodo que implementa el listener del boton guardar del fragment perfil usuario.
+    public void onClick(String name, String surname, String root){
+        this.name = name;
+        this.surname = surname;
+        this.root = root;
+        myDBAdapter.insertarUsuario(name, surname, root);
     }
 
     @Override

@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -19,17 +21,29 @@ import java.util.Date;
 
 public class PerfilUsuarioFragment extends Fragment {
 
+    buttonListener mButton;
+
+    public interface buttonListener{
+        public void onClick(String name, String surname, String root);
+    }
+
+    MyDBAdapter myDBAdapter;
     Button fotoBtn;
+    Button guardarBtn;
+    Spinner spinner;
+    EditText nombre;
+    EditText apellidos;
     //Fichero de guardado
     private Uri fileUri;
     //Tipos definidos
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
     private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
+    private String rutaUsuario;
+    private static String fichero;
 
     public PerfilUsuarioFragment() {
         // Required empty public constructor
-
     }
 
     /** Create a file Uri for saving an image or video */
@@ -38,8 +52,10 @@ public class PerfilUsuarioFragment extends Fragment {
     }
 
     public void creacionViews(){
-
         fotoBtn = (Button) getActivity().findViewById(R.id.fotoBtn);
+        guardarBtn = (Button) getActivity().findViewById(R.id.guardarBtn);
+        nombre = (EditText) getActivity().findViewById(R.id.editText);
+        apellidos = (EditText) getActivity().findViewById(R.id.editText2);
     }
 
     /** Create a File for saving an image or video */
@@ -66,6 +82,7 @@ public class PerfilUsuarioFragment extends Fragment {
         if (type == MEDIA_TYPE_IMAGE){
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
                     "IMG_"+ timeStamp + ".jpg");
+            fichero = String.valueOf(mediaFile);
         } else if(type == MEDIA_TYPE_VIDEO) {
             mediaFile = new File(mediaStorageDir.getPath() + File.separator +
                     "VID_"+ timeStamp + ".mp4");
@@ -80,7 +97,13 @@ public class PerfilUsuarioFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         creacionViews();
+
 
         fotoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +117,17 @@ public class PerfilUsuarioFragment extends Fragment {
 
                 // start the image capture Intent
                 startActivityForResult(camara, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+            }
+        });
+
+
+        guardarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String nombreUsuario = nombre.getText().toString();
+                String apellidoUsuario = apellidos.getText().toString();
+                rutaUsuario = "probando";
+                mButton.onClick(nombreUsuario, apellidoUsuario, rutaUsuario);
             }
         });
     }
@@ -113,13 +147,18 @@ public class PerfilUsuarioFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-
+        try {
+            mButton = (buttonListener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement ListFragmentListener");
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-
+        mButton = null;
     }
 
 }

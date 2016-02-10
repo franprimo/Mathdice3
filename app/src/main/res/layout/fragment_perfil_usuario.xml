@@ -1,7 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.franprimo.mathdice3.PerfilUsuarioFragment">
+    tools:context="com.example.franprimo.mathdice3.PerfilUsuarioFragment"
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -10,29 +12,40 @@
         android:layout_height="150dp"
         android:id="@+id/imageView3"
         android:layout_gravity="center_horizontal|top"
+        android:src="@drawable/perfilanonimo"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/perfilanonimo" />
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="Nombre"
         android:ems="10"
         android:id="@+id/editText"
         android:layout_below="@+id/editText2"
-        android:layout_alignStart="@+id/editText2" />
+        android:layout_alignStart="@+id/spinner"
+        android:layout_gravity="center_horizontal|top" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Name"
+        android:text="Apellidos"
         android:ems="10"
         android:id="@+id/editText2"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_toEndOf="@+id/editText"
+        android:layout_gravity="center_horizontal|top" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TOMAR FOTO"
+        android:id="@+id/fotoBtn"
+        android:layout_below="@+id/editText"
+        android:layout_alignEnd="@+id/editText"
+        android:layout_gravity="center_horizontal|top" />
 
     <Button
         android:layout_width="wrap_content"
@@ -40,14 +53,13 @@
         android:text="GUARDAR"
         android:id="@+id/guardarBtn"
         android:layout_below="@+id/editText"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true"
+        android:layout_gravity="center_horizontal|top" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TOMAR FOTO"
-        android:id="@+id/fotoBtn"
-        android:layout_below="@+id/imageView3"
-        android:layout_centerHorizontal="true" />
 
-</RelativeLayout>
+
+
+
+
+
+</LinearLayout>

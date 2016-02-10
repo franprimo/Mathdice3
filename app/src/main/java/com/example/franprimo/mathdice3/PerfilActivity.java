@@ -17,7 +17,7 @@ public class PerfilActivity extends Activity {
         setContentView(R.layout.activity_perfil);
 
         //Cargo el fragment en su contenedor estatico
-        PerfilUsuarioFragment pUf = (PerfilUsuarioFragment) getFragmentManager().findFragmentById(R.id.perfilUsuario);
+        PerfilFragment pf = (PerfilFragment) getFragmentManager().findFragmentById(R.id.containerPerfil);
 
 
         final EditText nombre = (EditText) findViewById(R.id.inputName);
