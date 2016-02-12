@@ -76,6 +76,21 @@ public class MyDBAdapter {
         return usuarios;
     }
 
+    public ArrayList<Usuario> recuperarUsuarioPorNombre(String name){
+        ArrayList<Usuario> usuario = new ArrayList<>();
+        Cursor cursor = db.query(DATABASE_TABLE, null, "nombre ='"+name+"'", null, null, null, null);
+        if(cursor != null && cursor.moveToFirst()){
+            do{
+                //usuario.add(cursor.getString(0)+" "+cursor.getString(1)+" "+cursor.getString(2)+" "+cursor.getString(3));
+                Usuario u = new Usuario();
+                u.setNombre(cursor.getString(1));
+                u.setRutaFoto(cursor.getString(3));
+                usuario.add(u);
+            }while (cursor.moveToNext());
+        }
+        return usuario;
+    }
+
     private static class MyDbHelper extends SQLiteOpenHelper {
 
         public MyDbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

@@ -21,13 +21,13 @@ public class MainActivity extends Activity implements ListaFragment.ListFragment
         if (findViewById(R.id.fragment_container) != null) {
             //Recojo los datos que he enviado con el intent que pasaba a esta activity y se los asigno
             //a dos variables.
-            Bundle bundle = getIntent().getExtras();
-            String nombre = bundle.getString("nombre");
-            String edad = bundle.getString("edad");
+            //Bundle bundle = getIntent().getExtras();
+            //String nombre = bundle.getString("nombre");
+            //String edad = bundle.getString("edad");
 
             //Muestro en consola los datos recibidos con el intent
-            Log.i("Nombre:", nombre);
-            Log.i("Edad:", edad);
+            //Log.i("Nombre:", nombre);
+            //Log.i("Edad:", edad);
 
             //Coloco el fragment lista en su contenedor estatico
             ListaFragment lf = (ListaFragment) getFragmentManager().findFragmentById(R.id.listaFragment);
