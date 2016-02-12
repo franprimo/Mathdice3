@@ -11,7 +11,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity implements ListaFragment.ListFragmentListener, PerfilUsuarioFragment.buttonListener {
 
     private MyDBAdapter myDBAdapter;
-    String name, surname, root;
+    String name = "", surname = "", root = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +83,13 @@ public class MainActivity extends Activity implements ListaFragment.ListFragment
 
     //Metodo que implementa el listener del boton guardar del fragment perfil usuario.
     public void onClick(String name, String surname, String root){
+        myDBAdapter = new MyDBAdapter(this);
+        myDBAdapter.open();
         this.name = name;
         this.surname = surname;
         this.root = root;
-        myDBAdapter.insertarUsuario(name, surname, root);
+        Log.i("Aqui si que llego:", this.name);
+        myDBAdapter.insertarUsuario(this.name, this.surname, this.root);
     }
 
     @Override

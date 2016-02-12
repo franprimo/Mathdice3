@@ -42,6 +42,9 @@ public class PerfilUsuarioFragment extends Fragment {
     private String rutaUsuario;
     private static String fichero;
 
+    String nombreUsuario;
+    String apellidoUsuario;
+
     public PerfilUsuarioFragment() {
         // Required empty public constructor
     }
@@ -102,6 +105,7 @@ public class PerfilUsuarioFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         creacionViews();
 
 
@@ -117,6 +121,7 @@ public class PerfilUsuarioFragment extends Fragment {
 
                 // start the image capture Intent
                 startActivityForResult(camara, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+                Log.i("Guardado en:", fichero);
             }
         });
 
@@ -124,9 +129,9 @@ public class PerfilUsuarioFragment extends Fragment {
         guardarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String nombreUsuario = nombre.getText().toString();
-                String apellidoUsuario = apellidos.getText().toString();
-                rutaUsuario = "probando";
+                nombreUsuario = nombre.getText().toString();
+                apellidoUsuario = apellidos.getText().toString();
+                rutaUsuario = fichero;
                 mButton.onClick(nombreUsuario, apellidoUsuario, rutaUsuario);
             }
         });
